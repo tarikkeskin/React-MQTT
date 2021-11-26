@@ -7,10 +7,12 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.7.0",
+    "axios": "^0.24.0",
     "mqtt": "^4.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "redis": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

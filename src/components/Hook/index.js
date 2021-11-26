@@ -6,6 +6,8 @@ import Receiver from './Receiver';
 import mqtt from 'mqtt';
 
 export const QosOption = createContext([])
+
+
 const qosOption = [
   {
     label: '0',
@@ -44,6 +46,8 @@ const HookMqtt = () => {
       });
       client.on('message', (topic, message) => {
         const payload = { topic, message: message.toString() };
+        //console.log(JSON.stringify(message));
+        console.log(typeof(message));
         setPayload(payload);
       });
     }
