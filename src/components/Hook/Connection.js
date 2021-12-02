@@ -4,13 +4,13 @@ import { Card, Button, Form, Input, Row, Col } from 'antd';
 const Connection = ({ connect, disconnect, connectBtn }) => {
   const [form] = Form.useForm();
   const record = {
-    host: 'broker.emqx.io',
-    clientId: `mqttjs_ + ${Math.random().toString(16).substr(2, 8)}`,
-    port: 8083,
+    host: '192.168.1.205',
+    //clientId: `mqttjs_ + ${Math.random().toString(16).substr(2, 8)}`,
+    port: 15675,
   };
   const onFinish = (values) => {
     const { host, clientId, port, username, password } = values;
-    const url = `ws://${host}:${port}/mqtt`;
+    const url = `ws://${host}:${port}/ws`;
     const options = {
       keepalive: 30,
       protocolId: 'MQTT',

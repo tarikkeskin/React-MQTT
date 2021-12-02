@@ -36,6 +36,7 @@ const HookMqtt = () => {
     if (client) {
       client.on('connect', () => {
         setConnectStatus('Connected');
+        console.log("Connected");
       });
       client.on('error', (err) => {
         console.error('Connection error: ', err);
