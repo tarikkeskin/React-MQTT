@@ -1,10 +1,43 @@
+const express = require('express');
 const redis = require('redis');
 const client = redis.createClient();
 
-client.on('connect', function() {
+app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+client.on('connect', function(err) {
+  if(err){
+    console.log('Could not establish a connection with Redis. '+err);
+  }
+  else{
   console.log('Connected!'); // Connected!
+  }
 });
 
+
+app.get('/', (req,res) => {
+  console.log("App works");
+  res.send('App Works !');
+});
+
+app.post('/send', (req, res) => {
+  const data = req.body
+  console.log("Data appjs -> ");
+  //console.log(type(data));
+  console.log(data.data.payload);
+
+  client.set('firstdata',data.data.payload,function(err,reply){
+    console.log("REPLYYY   "+reply); //OK
+  })
+  
+  res.send('Successfully sended data!')
+});
+
+
+
+/*
 // Strings
 
 client.set('framework', 'ReactJS', function(err, reply) {
@@ -73,6 +106,14 @@ client.set('working_days', 5, function() {
     console.log(reply); // 6
   });
 });
+*/
+
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server started at port: ${PORT}`);
+});
+
 
 
 

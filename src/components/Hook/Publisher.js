@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
-import { Card, Form, Input, Row, Col, Button, Select } from 'antd';
+import { Card, Form, Input, Row, Col, Button, Select, message } from 'antd';
 import { QosOption } from './HookMqtt'
+import axios from 'axios';
+import {writeToRedis} from '../../Services'
 
 const Publisher = ({ publish }) => {
   const [form] = Form.useForm();
@@ -12,7 +14,27 @@ const Publisher = ({ publish }) => {
   };
 
   const onFinish = (values) => {
-    publish(values)
+
+    console.log("inside Publisher OnFinish");
+    console.log(values.payload);
+    
+    
+    axios.post('/send', {
+      data:values
+    })
+    .then(res => {
+      console.log(res)
+    })
+    .catch(error => {
+          console.log(error)
+    })
+    
+    
+    
+
+    //writeToRedis(values[message]);
+    publish(values);
+
   };
 
   const PublishForm = (

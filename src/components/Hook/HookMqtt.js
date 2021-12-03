@@ -4,6 +4,7 @@ import Publisher from './Publisher';
 import Subscriber from './Subscriber';
 import Receiver from './Receiver';
 import mqtt from 'mqtt';
+//import axios from 'axios';
 
 export const QosOption = createContext([])
 
@@ -48,8 +49,8 @@ const HookMqtt = () => {
       client.on('message', (topic, message) => {
         const payload = { topic, message: message.toString() };
         //console.log(JSON.stringify(message));
-        console.log(typeof(message));
         setPayload(payload);
+
       });
     }
   }, [client]);
