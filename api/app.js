@@ -1,7 +1,3 @@
-const express = require('express');
-const app = express();
-const axios = require("axios");
-
 const redis = require('redis');
 const client = redis.createClient();
 
@@ -21,7 +17,14 @@ client.get('framework', function(err, reply) {
 
 // Hashes
 
-client.hmset('frameworks_hash', 'javascript', 'ReactJS', 'css', 'TailwindCSS', 'node', 'Express');
+//client.hmset('frameworks_hash', 'javascript', 'ReactJS', 'css', 'TailwindCSS', 'node', 'Express');
+
+client.hmset('frameworks_hash', {
+  'javascript': 'ReactJS',
+  'css': 'TailwindCSS',
+  'node': 'Express',
+  'tarik':'tarik'
+});
 
 client.hgetall('frameworks_hash', function(err, object) {
   console.log(object); // { javascript: 'ReactJS', css: 'TailwindCSS', node: 'Express' }
@@ -70,3 +73,6 @@ client.set('working_days', 5, function() {
     console.log(reply); // 6
   });
 });
+
+
+
