@@ -4,6 +4,7 @@ export async function writeToRedis(data) {
     try{
         console.log("Service writeToRedis ");
         console.log(data);
+        
         const response = await fetch('/send', {  
             method: 'POST',
             headers: {'Content-Type': 'application/json'},

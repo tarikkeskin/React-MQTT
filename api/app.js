@@ -2,6 +2,8 @@ const express = require('express');
 const redis = require('redis');
 const client = redis.createClient();
 
+const fs = require('fs');
+
 app = express();
 
 app.use(express.json());
@@ -22,6 +24,7 @@ app.get('/', (req,res) => {
   res.send('App Works !');
 });
 
+// Write request to redis
 app.post('/send', (req, res) => {
   const data = req.body
   console.log("Data appjs -> ");
@@ -35,9 +38,36 @@ app.post('/send', (req, res) => {
   res.send('Successfully sended data!')
 });
 
+//Read data from Redis
+
+const readData=(key) =>{
+
+  client.get(key,function(err,reply){
+    if(err){
+      console.log(err);
+    }else{
+      console.log("Successfully read the data");
+      fs.writeFileSync('/Users/tarik/Desktop/mqtt/src/components/Hook/data.json',reply);
+    }  
+  });
+
+}
+
+app.post('/read',(req,res)=>{
+
+  const key=req.body;
+  const data = readData(key.data.key);
+  res.send(data);
+});
+
+
+
 
 
 /*
+
+********* Redis Database Properities **********
+
 // Strings
 
 client.set('framework', 'ReactJS', function(err, reply) {

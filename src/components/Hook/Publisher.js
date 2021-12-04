@@ -15,9 +15,12 @@ const Publisher = ({ publish }) => {
 
   const onFinish = (values) => {
 
-    console.log("inside Publisher OnFinish");
-    console.log(values.payload);
-    
+    //console.log("inside Publisher OnFinish");
+    //console.log(values.payload);
+    //console.log(typeof(values));
+    //console.log(typeof(values.payload));
+
+    // ******* Axios ***********
     
     axios.post('/send', {
       data:values
@@ -30,9 +33,10 @@ const Publisher = ({ publish }) => {
     })
     
     
-    
+    // ******* Fetch from our Service *********
 
-    //writeToRedis(values[message]);
+    //writeToRedis(values);
+
     publish(values);
 
   };
@@ -73,7 +77,7 @@ const Publisher = ({ publish }) => {
         <Col span={8} offset={16} style={{ textAlign: 'right' }}>
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Publish
+              Publish and Write
             </Button>
           </Form.Item>
         </Col>
@@ -83,7 +87,7 @@ const Publisher = ({ publish }) => {
 
   return (
     <Card
-      title="Publisher"
+      title="Publish and Write the payload to Redis (There is hard-coded only one key which is 'firstdata' for now!)"
     >
       {PublishForm}
     </Card>
