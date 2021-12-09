@@ -1,0 +1,9 @@
+{
+  "light": "light.png",
+  "offlight": "offlight.png",
+  "sensor": "sensor.png",
+  "pirsensor": "pirsensor.png",
+  "led": "led.png",
+  "errorlight": "errorlight.png",
+  "katplaninagit": "katplaninagit.png"
+}

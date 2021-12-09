@@ -1,10 +1,17 @@
-const express = require('express');
-const redis = require('redis');
-const client = redis.createClient();
+import express from 'express'
+import Redis from 'ioredis';
+import JSONCache from 'redis-json';
+import fs from 'fs'
 
-const fs = require('fs');
+//const redis = require('redis');
+const client = Redis.createClient();
 
-app = express();
+const redis = new Redis();
+
+const jsonCache = new JSONCache(redis)
+
+
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -18,6 +25,15 @@ client.on('connect', function(err) {
   }
 });
 
+const dataPath='/Users/tarikkeskin/Desktop/Lotec/mqtt/jsonfiles/1lvc02z0kuqoarwm.png.json';
+// Read from given dataPath
+const getDatafromDataPath = () =>{
+
+  const jsonData = fs.readFileSync(dataPath);
+
+  return JSON.parse(jsonData);
+}
+
 
 app.get('/', (req,res) => {
   console.log("App works");
@@ -28,14 +44,33 @@ app.get('/', (req,res) => {
 app.post('/send', (req, res) => {
   const data = req.body
   console.log("Data appjs -> ");
-  //console.log(type(data));
+  console.log(typeof(data));
+  console.log(typeof(data.data));
+  console.log(typeof(data.data.payload));
   console.log(data.data.payload);
 
   client.set('firstdata',data.data.payload,function(err,reply){
-    console.log("REPLYYY   "+reply); //OK
+    console.log(reply); //OK
   })
   
   res.send('Successfully sended data!')
+});
+
+// Write Jsonfile to redis
+app.post('/writejson', (req, res) => {
+  const data = req.body
+  console.log("Write Json  appjs -> ");
+  console.log(typeof(data));
+  console.log(typeof(data.data));
+  
+  jsonCache.set('123', data.data)
+
+  const result = jsonCache.get('123',"path")
+
+  console.log(result)
+  
+  
+  res.send('Successfully write json data!')
 });
 
 //Read data from Redis
@@ -46,8 +81,10 @@ const readData=(key) =>{
     if(err){
       console.log(err);
     }else{
+      console.log(typeof(reply))
+      console.log(reply)
       console.log("Successfully read the data");
-      fs.writeFileSync('/Users/tarikkeskin/Desktop/Lotec/mqtt/jsonfiles/data.json',reply);
+      fs.writeFileSync('/Users/tarikkeskin/Desktop/Lotec/mqtt/src/jsonfiles/data.json',reply);
     }  
   });
 
@@ -61,12 +98,8 @@ app.post('/read',(req,res)=>{
 });
 
 
-
-
-
 /*
 
-********* Redis Database Properities **********
 
 // Strings
 
@@ -136,7 +169,10 @@ client.set('working_days', 5, function() {
     console.log(reply); // 6
   });
 });
+
+
 */
+
 
 
 const PORT = 3000;

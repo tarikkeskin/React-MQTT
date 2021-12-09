@@ -1,5 +1,6 @@
 {
   "name": "mqttreact",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,12 +11,14 @@
     "axios": "^0.24.0",
     "connect-redis": "^6.0.0",
     "express-session": "^1.17.2",
+    "ioredis": "^4.28.2",
+    "iorejson": "^0.1.1",
     "mqtt": "^4.2.1",
-    "nodemon": "^2.0.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
-    "redis": "^3.1.2"
+    "redis": "^3.1.2",
+    "redis-json": "^6.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,5 +41,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3000"
+  "proxy": "http://localhost:3000",
+  "devDependencies": {
+    "json-loader": "^0.5.7"
+  }
 }

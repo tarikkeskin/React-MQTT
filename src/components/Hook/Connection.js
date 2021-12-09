@@ -1,5 +1,7 @@
 import React from 'react';
 import { Card, Button, Form, Input, Row, Col } from 'antd';
+import json from '../../jsonfiles/1lvc02z0kuqoarwm.png.json'
+import axios from 'axios';
 
 const Connection = ({ connect, disconnect, connectBtn }) => {
   const [form] = Form.useForm();
@@ -20,7 +22,7 @@ const Connection = ({ connect, disconnect, connectBtn }) => {
       connectTimeout: 30 * 1000,
       will: {
         topic: 'WillMsg',
-        payload: 'Connection Closed abnormally..!',
+        payload: 'Connection Closed abnormally...!!',
         qos: 0,
         retain: false
       },
@@ -30,6 +32,21 @@ const Connection = ({ connect, disconnect, connectBtn }) => {
     options.username = username;
     options.password = password;
     connect(url, options);
+
+    console.log(json);
+
+
+    axios.post('/writejson', {
+      data:json
+    })
+    .then(res => {
+      console.log(res)
+    })
+    .catch(error => {
+          console.log(error)
+    })
+        
+    
   };
 
   const handleConnect = () => {
