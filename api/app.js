@@ -47,7 +47,7 @@ const readData=(key) =>{
       console.log(err);
     }else{
       console.log("Successfully read the data");
-      fs.writeFileSync('/Users/tarik/Desktop/mqtt/src/components/Hook/data.json',reply);
+      fs.writeFileSync('/Users/tarikkeskin/Desktop/Lotec/mqtt/jsonfiles/data.json',reply);
     }  
   });
 

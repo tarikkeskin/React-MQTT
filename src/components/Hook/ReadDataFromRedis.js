@@ -9,6 +9,9 @@ const ReadDataFromRedis = ({ publish }) => {
 
   const onFinish = (values) => {
 
+    console.log("On finish Values ReadData!!");
+    console.log(values);
+
     // ******* Axios ***********
     
     axios.post('/read', {
@@ -20,6 +23,7 @@ const ReadDataFromRedis = ({ publish }) => {
     .catch(error => {
           console.log(error)
     })
+
     
     
     

@@ -15,10 +15,11 @@ const Publisher = ({ publish }) => {
 
   const onFinish = (values) => {
 
-    //console.log("inside Publisher OnFinish");
-    //console.log(values.payload);
+    console.log("inside Publisher OnFinish");
+    console.log(values);
     //console.log(typeof(values));
     //console.log(typeof(values.payload));
+
 
     // ******* Axios ***********
     
