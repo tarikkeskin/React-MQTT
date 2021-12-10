@@ -1,0 +1,15 @@
+{
+  "path": "/Users/egebartukurtaran/AXIS_Server/client/public/data/users.json",
+  "users": [
+    {
+      "user": "admin",
+      "password": "$2b$10$xxJYKf8hA4cJpW74.jcS5eHy4P7r0/snc1BTmTWvVLRmdgrDNtahm",
+      "role": "admin"
+    },
+    {
+      "user": "egebartu",
+      "password": "$2b$10$idYn/RYf0kMVOJeRBLchZe33oFPMYpI4a.Gl8kwtQrtYHoLigvcJW",
+      "role": "user"
+    }
+  ]
+}

@@ -1,8 +1,14 @@
+// ***** imported modules *****
 const express = require('express');
 const redis = require('redis');
-const client = redis.createClient();
-
+const rejson = require('redis-rejson');
 const fs = require('fs');
+
+/* important - this must come BEFORE creating the client */
+rejson(redis); 
+
+// initialize redis client
+const client = redis.createClient();
 
 app = express();
 
@@ -18,6 +24,15 @@ client.on('connect', function(err) {
   }
 });
 
+const dataPath='/Users/tarikkeskin/Desktop/Lotec/mqtt/jsonfiles/1lvc02z0kuqoarwm.png.json';
+// Read from given dataPath
+const getDatafromDataPath = () =>{
+
+  const jsonData = fs.readFileSync(dataPath);
+
+  return JSON.parse(jsonData);
+}
+
 
 app.get('/', (req,res) => {
   console.log("App works");
@@ -28,26 +43,52 @@ app.get('/', (req,res) => {
 app.post('/send', (req, res) => {
   const data = req.body
   console.log("Data appjs -> ");
-  //console.log(type(data));
+  console.log(typeof(data));
+  console.log(typeof(data.data));
+  console.log(typeof(data.data.payload));
   console.log(data.data.payload);
 
   client.set('firstdata',data.data.payload,function(err,reply){
-    console.log("REPLYYY   "+reply); //OK
+    console.log(reply); //OK
   })
   
   res.send('Successfully sended data!')
+});
+
+// Write Jsonfile to redis
+app.post('/writejson', (req, res) => {
+  const data = req.body
+  console.log("Write Json  appjs -> ");
+  console.log(data);
+  console.log(JSON.stringify(data.data));
+
+  let my_json_key='my_json';
+  
+  client.json_set(my_json_key, '.',JSON.stringify(data.data) , function (err) {
+    if (err) { throw err; }
+    console.log('Set JSON at key ' + my_json_key );
+    client.json_get(my_json_key, function (err, value) {
+      if (err) { throw err; }
+      console.log('value of test:', value); //outputs 1234
+    });
+  });
+
+  
+  
+  res.send('Successfully write json data!')
 });
 
 //Read data from Redis
 
 const readData=(key) =>{
 
-  client.get(key,function(err,reply){
+  client.json_get(key,function(err,reply){
     if(err){
       console.log(err);
     }else{
+      console.log(reply)
       console.log("Successfully read the data");
-      fs.writeFileSync('/Users/tarikkeskin/Desktop/Lotec/mqtt/jsonfiles/data.json',reply);
+      //fs.writeFileSync('/Users/tarikkeskin/Desktop/Lotec/mqtt/jsonfiles/data.json',reply);
     }  
   });
 
@@ -61,12 +102,8 @@ app.post('/read',(req,res)=>{
 });
 
 
-
-
-
 /*
 
-********* Redis Database Properities **********
 
 // Strings
 
@@ -136,7 +173,10 @@ client.set('working_days', 5, function() {
     console.log(reply); // 6
   });
 });
+
+
 */
+
 
 
 const PORT = 3000;
