@@ -4,7 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## RedisJSON Module plugin for node_redis has been used
 
-To more info check -> https://github.com/RedisJSON/RedisJSON 
+To more info check :
+-> https://github.com/RedisJSON/RedisJSON 
+-> https://github.com/stockholmux/node_redis-rejson
 
 ## Available Scripts
 
