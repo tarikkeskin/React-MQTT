@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## RedisJSON Module plugin for node_redis has been used
+
+To more info check -> https://github.com/RedisJSON/RedisJSON 
+
 ## Available Scripts
 
 In the project directory, you can run:
