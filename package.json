@@ -1,6 +1,5 @@
 {
   "name": "mqttreact",
-  "type": "module",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,7 +17,8 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
     "redis": "^3.1.2",
-    "redis-json": "^6.0.2"
+    "redis-json": "^6.0.2",
+    "redis-rejson": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

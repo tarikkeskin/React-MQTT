@@ -25,3 +25,4 @@ yarn-error.log*
 /.vscode
 /jsonfiles
 /api/redis-6.2.4
+/api/RedisJSON

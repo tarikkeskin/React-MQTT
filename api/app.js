@@ -1,17 +1,16 @@
-import express from 'express'
-import Redis from 'ioredis';
-import JSONCache from 'redis-json';
-import fs from 'fs'
+// ***** imported modules *****
+const express = require('express');
+const redis = require('redis');
+const rejson = require('redis-rejson');
+const fs = require('fs');
 
-//const redis = require('redis');
-const client = Redis.createClient();
+/* important - this must come BEFORE creating the client */
+rejson(redis); 
 
-const redis = new Redis();
+// initialize redis client
+const client = redis.createClient();
 
-const jsonCache = new JSONCache(redis)
-
-
-const app = express();
+app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -60,14 +59,20 @@ app.post('/send', (req, res) => {
 app.post('/writejson', (req, res) => {
   const data = req.body
   console.log("Write Json  appjs -> ");
-  console.log(typeof(data));
-  console.log(typeof(data.data));
+  console.log(data);
+  console.log(JSON.stringify(data.data));
+
+  let my_json_key='my_json';
   
-  jsonCache.set('123', data.data)
+  client.json_set(my_json_key, '.',JSON.stringify(data.data) , function (err) {
+    if (err) { throw err; }
+    console.log('Set JSON at key ' + my_json_key );
+    client.json_get(my_json_key, function (err, value) {
+      if (err) { throw err; }
+      console.log('value of test:', value); //outputs 1234
+    });
+  });
 
-  const result = jsonCache.get('123',"path")
-
-  console.log(result)
   
   
   res.send('Successfully write json data!')
@@ -77,14 +82,13 @@ app.post('/writejson', (req, res) => {
 
 const readData=(key) =>{
 
-  client.get(key,function(err,reply){
+  client.json_get(key,function(err,reply){
     if(err){
       console.log(err);
     }else{
-      console.log(typeof(reply))
       console.log(reply)
       console.log("Successfully read the data");
-      fs.writeFileSync('/Users/tarikkeskin/Desktop/Lotec/mqtt/src/jsonfiles/data.json',reply);
+      //fs.writeFileSync('/Users/tarikkeskin/Desktop/Lotec/mqtt/jsonfiles/data.json',reply);
     }  
   });
 

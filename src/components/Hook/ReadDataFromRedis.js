@@ -23,9 +23,6 @@ const ReadDataFromRedis = ({ publish }) => {
     .catch(error => {
           console.log(error)
     })
-
-    
-    
     
     // ******* Fetch from our Service *********
 
