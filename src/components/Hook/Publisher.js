@@ -16,13 +16,13 @@ const Publisher = ({ publish }) => {
   const onFinish = (values) => {
 
     console.log("inside Publisher OnFinish");
-    console.log(values);
+    //console.log(values);
     //console.log(typeof(values));
     //console.log(typeof(values.payload));
 
-
-    // ******* Axios ***********
     
+    // ******* Axios ***********
+    /*
     axios.post('/send', {
       data:values
     })
@@ -32,6 +32,7 @@ const Publisher = ({ publish }) => {
     .catch(error => {
           console.log(error)
     })
+    */
     
     
     // ******* Fetch from our Service *********

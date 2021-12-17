@@ -53,8 +53,8 @@ const HookMqtt = () => {
 
         console.log("Inside Hook Mqtt Client Message -> ");
         console.log(message);
-        console.log(typeof(message));
-        console.log(JSON.stringify(message));
+        //console.log(typeof(message));
+        //console.log(JSON.stringify(message));
         setPayload(payload);
 
       });

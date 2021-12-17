@@ -33,6 +33,8 @@ const Connection = ({ connect, disconnect, connectBtn }) => {
     options.password = password;
     connect(url, options);
 
+    console.log("CONNECTION Jsonfile data Below ->");
+
     console.log(json);
 
 

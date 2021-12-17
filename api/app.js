@@ -72,6 +72,7 @@ app.post('/writejson', (req, res) => {
       console.log('value of test:', value); //outputs 1234
     });
   });
+  
 
   
   
@@ -176,7 +177,6 @@ client.set('working_days', 5, function() {
 
 
 */
-
 
 
 const PORT = 3000;
